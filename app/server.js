@@ -4,15 +4,11 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/html/login.html'));
+    res.sendFile(path.join(__dirname + '/views/login.html'));
 });
 
 router.get('/main', function (req, res) {
-    res.sendFile(path.join(__dirname + '/html/main.html'));
-});
-
-router.get('/sitemap', function (req, res) {
-    res.sendFile(path.join(__dirname + '/sitemap.html'));
+    res.sendFile(path.join(__dirname + '/views/main.html'));
 });
 
 //add the router
