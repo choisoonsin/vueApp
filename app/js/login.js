@@ -1,3 +1,5 @@
+Vue.config.productionTip = false
+
 var login = new Vue({
     el: "#login",
     data: { 
@@ -11,8 +13,8 @@ var login = new Vue({
             if (event) event.preventDefault();
             alert(message);
         },
-        doThis: function () {
-            alert("doThis!!");
+        login : function(event){
+            console.log(event);    
         }
     }
 })
