@@ -11,6 +11,10 @@ router.get('/main', function (req, res) {
     res.sendFile(path.join(__dirname + '/views/main.html'));
 });
 
+router.get('/menu', function (req, res) {
+    res.sendFile(path.join(__dirname + '/views/menu.html'));
+});
+
 //add the router
 app.use('/', router);
 app.listen(process.env.port || 3000);
