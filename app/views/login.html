@@ -3,8 +3,8 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="//unpkg.com/axios/dist/axios.min.js"></script>
-<div class="Container">
-    <form id="login" @submit.prevent="sendPost">
+<div class="Container" id="login">
+    <form @submit.prevent="sendPost">
         <!-- form ?•ˆ?— ?žˆ?œ¼ë©? ?˜¤ë¥? ?‚¨.-->
         <div class="form-group" style="margin:40px;">
             <div class="form-group">
@@ -20,8 +20,8 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
-            <button class="btn btn-primary">Login</button>
-            <button class="btn btn-primary">Login2</button>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="button" class="btn btn-primary">Login2</button>
         </div>
     </form>
 </div>
@@ -38,12 +38,14 @@
                 window.location.href = '/main';
             },
             sendPost: function () {
-                axios.post('/login', {
+                axios.post('/login.do', {
                     id : this.id,
                     pass : this.password
                 })
                     .then(function (res) {
-                        console.log(res.data)
+                        if(res.data.status == "200"){
+                            console.log(res.data.forward);
+                        }
                     }, function () {
                         console.log('failed')
                     })
