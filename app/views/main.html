@@ -1,14 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    This is main page
-    <br>
-    {{id}}
-</body>
-</html>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//unpkg.com/axios/dist/axios.min.js"></script>
+<style>
+    #footer {
+        position:absolute;
+        bottom:0;
+        width:100%;
+        height:40px;   
+        background-color: #dad8d8
+    }
+</style>
+<div id="content" class="container">
+    {{message}}
+
+    <ul id="example2">
+        <li v-for="(item, index) in items" :key="index">
+            {{ item }} - {{ index }} - {{ index }}
+        </li>
+    </ul>
+
+    <div v-for="(value, key, index) in car">
+        <template v-if="Array.isArray(value)">
+            It is Array
+            <ul v-for="(item, index) in value" :key="index">
+                <li>options : {{ item.option }} {{ key }}</li>
+            </ul>
+        </template>
+        <template v-else>It is not array : {{ value }}</template>
+    </div>
+
+    <div>
+        <label>동적 프로퍼티 생성</label>
+        <li v-for="(value, key) in person" :key="key">
+            {{ key }} : {{ value }}
+        </li>
+        <pre style="background-color:#dad8d8; padding:10px; margin:5px;border-radius: 5px;">
+            Vue.set(content.person, "name", "cyh");
+            or
+            this.person["name"] = "cyh";</pre>
+        <button class="btn btn-primary"
+            @click="add()">{{ controls.isAdded ? 'Execute Delete' : 'Execute Add' }}</button>
+    </div>
+
+</div>
+<div id="footer" class="container-fluid">
+    <img src="/images/hamberger_menu.png" class="rounded float-left" style="width:35px;" alt="...">
+    {{ footerMessage }}
+</div>
+<script>
+    var content = new Vue({
+        el: '#content',
+        data: {
+            controls: {
+                isAdded: false
+            },
+            message: "This is main Page",
+            parentMessage: 'Parent',
+            person: {
+                age: 25
+            },
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ],
+            car: {
+                name: 'sorento',
+                price: 3000,
+                options: [
+                    { option: 'air conditioner' },
+                    { option: 'auto parking' }
+                ]
+            }
+        },
+        methods: {
+            add: function () {
+                console.log(this.controls.btnLabel);
+                if (this.controls.isAdded) {
+                    delete this.person["name"];
+                } else {
+                    this.person["name"] = "cyh";
+                }
+                this.controls.isAdded = !this.controls.isAdded;
+
+                // extends !! 
+                Object.assign(this.person, {
+                    age: 36,
+                    favoriteColor: 'Vue Green'
+                })
+            }
+        },
+    });
+
+    var footer = new Vue({
+        el: "#footer",
+        data: {
+            footerMessage : 'This is footer message!!'
+        }
+    })
+</script>

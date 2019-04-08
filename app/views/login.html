@@ -21,7 +21,6 @@
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-            <button type="button" class="btn btn-primary">Login2</button>
         </div>
     </form>
 </div>
@@ -45,11 +44,12 @@
                     .then(function (res) {
                         if(res.data.status == "200"){
                             console.log(res.data.forward);
+                            location.href = '/main'
                         }
                     }, function () {
                         console.log('failed')
                     })
             }
         }
-    })
+    });
 </script>

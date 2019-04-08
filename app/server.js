@@ -4,6 +4,7 @@ const path = require('path');
 const router = express.Router();
 
 app.use(express.json());
+app.use('/images', express.static(__dirname + '/images'));  // add static source
 
 router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/views/login.html'));
