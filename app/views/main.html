@@ -32,7 +32,7 @@
     </div>
 
     <div>
-        <label>ÎèôÏ†Å ÌîÑÎ°úÌçºÌã∞ ÏÉùÏÑ±</label>
+        <label>?èô?†Å ?îÑÎ°úÌçº?ã∞ ?Éù?Ñ±</label>
         <li v-for="(value, key) in person" :key="key">
             {{ key }} : {{ value }}
         </li>
@@ -44,14 +44,57 @@
             @click="add()">{{ controls.isAdded ? 'Execute Delete' : 'Execute Add' }}</button>
     </div>
 
+    <div class="container">
+        <h2>component example</h2>
+        <my-component></my-component>
+        <child-component></child-component>
+    </div>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td scope="col">Type</td>
+                    <td scope="col">Comment</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Yes</td>
+                    <td>It is comment</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <div id="footer" class="container-fluid">
     <img src="/images/hamberger_menu.png" class="rounded float-left" style="width:35px;" alt="...">
     {{ footerMessage }}
+    <!-- It maybe do not work because the child-component is not global variable -->
+    <child-component></child-component>
 </div>
 <script>
+    // You must have to define component before vue instance
+    // you should use cebab-case when named id
+    Vue.component('my-component', {
+        template : `<button type='button' class='btn btn-primary' @click='onClick_myComponent()'>It is component</button>`,
+        methods : {
+            onClick_myComponent : function(){
+                alert("my-component-button clicked!!");
+            }
+        }
+    });
+
+    var ChildComp = {
+        template : `<label>HELLO I'm child</label>`
+    }
+
     var content = new Vue({
         el: '#content',
+        components:{
+            'child-component' : ChildComp
+        },
         data: {
             controls: {
                 isAdded: false
@@ -92,6 +135,8 @@
             }
         },
     });
+
+
 
     var footer = new Vue({
         el: "#footer",
